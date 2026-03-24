@@ -1,0 +1,9 @@
+services:
+  reverse-proxy:
+    container_name: reverse-proxy
+    image: virabshetkar/reverse-proxy
+    ports:
+      - ${PORT:-8080}:80
+    volumes:
+      - ${NGINX_CONFIG_PATH:?NGINX_CONFIG_PATH is required}:/etc/nginx/conf.d/:ro
+      - ${APP_CONFIG_PATH:?APP_CONFIG_PATH is required}:/usr/share/nginx/config/:ro

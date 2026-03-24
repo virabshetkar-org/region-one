@@ -1,0 +1,11 @@
+services:
+  reverse-proxy:
+    extends:
+      file: ./compose.yml
+      service: reverse-proxy
+    networks:
+      - local-network
+
+networks:
+  local-network:
+    external: true

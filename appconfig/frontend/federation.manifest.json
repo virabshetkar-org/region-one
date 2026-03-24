@@ -1,0 +1,16 @@
+{
+  "mfes": {
+    "todo-client": {
+      "path": "todo",
+      "module": "./Routes",
+      "location": "http://localhost:4201/remoteEntry.json"
+    },
+    "note-client": {
+      "path": "note",
+      "module": "./Routes",
+      "location": "http://localhost:4202/remoteEntry.json"
+    }
+  },
+  "defaultRoute": "note",
+  "region": "region-one"
+}
