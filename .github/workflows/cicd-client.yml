@@ -1,0 +1,17 @@
+name: CICD (Client)
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo:
+        type: choice
+        description: Repository Location
+        options:
+          - virabshetkar-org/application.note
+          - virabshetkar-org/application.todo
+          - virabshetkar-org/reverse-proxy
+jobs:
+  hello-world:
+    runs-on: self-hosted
+    steps:
+      - run: echo "Hello World!"
