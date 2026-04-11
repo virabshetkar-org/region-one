@@ -60,4 +60,4 @@ jobs:
         with:
           path: /var/www/region-one/${{needs.build.outputs.name}}/${{inputs.commitId}}/
       - name: Link hash
-        run: ln -sf /var/www/region-one/${{needs.build.outputs.name}}/current/ /var/www/region-one/${{needs.build.outputs.name}}/${{inputs.commitId}}/
+        run: ln -sf /var/www/region-one/${{needs.build.outputs.name}}/${{inputs.commitId}} /var/www/region-one/${{needs.build.outputs.name}}/current
