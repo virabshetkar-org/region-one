@@ -10,8 +10,30 @@ on:
           - virabshetkar-org/application.note
           - virabshetkar-org/application.todo
           - virabshetkar-org/reverse-proxy
+      commitId:
+        type: string
+        description: Commit ID of the repo
+      base-href:
+        type: string
+        description: Path prefix for the client application
+        
 jobs:
-  hello-world:
+  build:
     runs-on: self-hosted
     steps:
-      - run: echo "Hello World!"
+      - name: Clone repo
+        uses: actions/checkout@v6
+        with:
+          repository: ${{ inputs.repo }}
+          ref: ${{ inputs.commitId }}
+          path: application
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Ensure Node v24 is Installed
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+      - name: Build Application
+        run: npm run build -- --base-href ${{inputs.base-href}}
+        working-directory: application/client
+          
