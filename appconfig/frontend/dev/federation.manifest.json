@@ -1,0 +1,16 @@
+{
+  "mfes": {
+    "todo-client": {
+      "path": "todo",
+      "module": "./Routes",
+      "location": "http://pi.lan/todo-client/remoteEntry.json"
+    },
+    "note-client": {
+      "path": "note",
+      "module": "./Routes",
+      "location": "http://pi.lan/note-client/remoteEntry.json"
+    }
+  },
+  "defaultRoute": "note",
+  "region": "region-one"
+}
