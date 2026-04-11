@@ -43,4 +43,9 @@ jobs:
       - name: Build Application
         run: npm run build -- --base-href /${{steps.ngproj.outputs.name}}/
         working-directory: application/client
+      - name: Create Artifact
+        uses: action/upload-artifact@v7
+        with:
+          path: application/client/dist/${{steps.ngproj.outputs.name}}/browser/*
+          name: client-artifact
           
