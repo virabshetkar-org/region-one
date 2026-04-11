@@ -15,9 +15,6 @@ on:
       commitId:
         type: string
         description: Commit ID of the repo
-      base-href:
-        type: string
-        description: Path prefix for the client application
         
 jobs:
   build:
@@ -30,6 +27,9 @@ jobs:
           ref: ${{ inputs.commitId }}
           path: application
           token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Get project name
+        id: ngproj
+        run: echo "name=$(jq -r '.defaultProject // (.projects | keys[0])' angular.json)" >> $GITHUB_OUTPUT
       - name: Ensure Node v24 is Installed
         uses: actions/setup-node@v6
         with:
@@ -40,6 +40,6 @@ jobs:
         run: npm ci
         working-directory: application/client
       - name: Build Application
-        run: npm run build -- --base-href ${{inputs.base-href}}
+        run: npm run build -- --base-href /${{steps.ngproj.outputs.name}}/
         working-directory: application/client
           
