@@ -43,7 +43,12 @@ jobs:
         run: npm ci
         working-directory: application/client
       - name: Build Application
+        if: ${{steps.ngproj.outputs.name != 'shell'}}
         run: npm run build -- --base-href /${{steps.ngproj.outputs.name}}/
+        working-directory: application/client
+      - name: Build Shell Application
+        if: ${{steps.ngproj.outputs.name == 'shell'}}
+        run: npm run build
         working-directory: application/client
       - name: Create Artifact
         uses: actions/upload-artifact@v7
