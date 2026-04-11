@@ -30,6 +30,7 @@ jobs:
       - name: Get project name
         id: ngproj
         run: echo "name=$(jq -r '.defaultProject // (.projects | keys[0])' angular.json)" >> $GITHUB_OUTPUT
+        working-directory: application/client
       - name: Ensure Node v24 is Installed
         uses: actions/setup-node@v6
         with:
