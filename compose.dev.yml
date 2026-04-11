@@ -6,7 +6,7 @@ services:
     networks:
       - local-network
     volumes:
-      - /var/www/html/:/usr/share/nginx/html:ro
+      - /var/www/region-one/:/usr/share/nginx/html/:ro
 
 networks:
   local-network:
