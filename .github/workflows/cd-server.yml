@@ -9,8 +9,8 @@ on:
         type: choice
         description: Repo to deploy
         options:
-          - virabshetkar/todo-service
-          - virabshetkar/note-service
+          - todo-service
+          - note-service
       commitId:
         type: string
         description: Commit Id in the repo to deploy
@@ -20,8 +20,13 @@ jobs:
     runs-on: [self-hosted, deploy]
     steps:
       - name: Tag commit id
-        run: docker buildx imagetools create --tag ${{inputs.repo}}:region-one-dev ${{inputs.repo}}:${{inputs.commitId}} 
+        run: docker buildx imagetools create --tag virabshetkar/${{inputs.repo}}:region-one-dev ${{inputs.repo}}:${{inputs.commitId}} 
+      - name: Checkout Branch
+        uses: actions/checkout@v6
+        with:
+          path: configuration
       - name: Restart Container
+        working-directory: configuration/docker/${{inputs.repo}}
         run: | 
           docker compose pull
           docker compose up
