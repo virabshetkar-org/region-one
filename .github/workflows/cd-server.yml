@@ -20,7 +20,7 @@ jobs:
     runs-on: [self-hosted, deploy]
     steps:
       - name: Tag commit id
-        run: docker buildx imagetools create --tag virabshetkar/${{inputs.repo}}:region-one-dev ${{inputs.repo}}:${{inputs.commitId}} 
+        run: docker buildx imagetools create --tag virabshetkar/${{inputs.repo}}:region-one-dev virabshetkar/${{inputs.repo}}:${{inputs.commitId}} 
       - name: Checkout Branch
         uses: actions/checkout@v6
         with:
