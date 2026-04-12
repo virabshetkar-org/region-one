@@ -29,4 +29,4 @@ jobs:
         working-directory: configuration/docker/${{inputs.repo}}
         run: | 
           docker compose pull
-          docker compose up
+          docker compose up -d
