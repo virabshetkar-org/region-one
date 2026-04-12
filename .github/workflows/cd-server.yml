@@ -1,0 +1,29 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CD Server
+
+run-name: ${{inputs.repo}} -- ${{inputs.commitId}}
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo:
+        type: choice
+        description: Repo to deploy
+        options:
+          - virabshetkar/application.todo
+          - virabshetkar/application.note
+      commitId:
+        type: string
+        description: Commit Id in the repo to deploy
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, deploy]
+    steps:
+      - name: Pull image
+        run: docker pull ${{inputs.repo}}:${{inputs.commitId}}
+      - name: Tag commit id
+        run: docker image tag ${{inputs.repo}}:${{inputs.commitId}} ${{inputs.repo}}:region-one-dev
+      - name: Push Tag
+        run: docker push ${{inputs.repo}}:region-one-dev
