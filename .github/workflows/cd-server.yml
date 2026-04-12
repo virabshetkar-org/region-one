@@ -21,3 +21,7 @@ jobs:
     steps:
       - name: Tag commit id
         run: docker buildx imagetools create --tag ${{inputs.repo}}:region-one-dev ${{inputs.repo}}:${{inputs.commitId}} 
+      - name: Restart Container
+        run: | 
+          docker compose pull
+          docker compose up
