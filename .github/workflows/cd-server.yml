@@ -1,5 +1,3 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CD Server
 
 run-name: ${{inputs.repo}} -- ${{inputs.commitId}}
@@ -11,8 +9,8 @@ on:
         type: choice
         description: Repo to deploy
         options:
-          - virabshetkar/application.todo
-          - virabshetkar/application.note
+          - virabshetkar/todo-service
+          - virabshetkar/note-service
       commitId:
         type: string
         description: Commit Id in the repo to deploy
