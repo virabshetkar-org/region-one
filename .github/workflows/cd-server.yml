@@ -19,9 +19,5 @@ jobs:
   deploy:
     runs-on: [self-hosted, deploy]
     steps:
-      - name: Pull image
-        run: docker pull ${{inputs.repo}}:${{inputs.commitId}}
       - name: Tag commit id
-        run: docker image tag ${{inputs.repo}}:${{inputs.commitId}} ${{inputs.repo}}:region-one-dev
-      - name: Push Tag
-        run: docker push ${{inputs.repo}}:region-one-dev
+        run: docker buildx imagetools --tag ${{inputs.repo}}:region-one-dev ${{inputs.repo}}:${{inputs.commitId}} 
