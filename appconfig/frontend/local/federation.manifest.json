@@ -3,12 +3,12 @@
     "todo-client": {
       "path": "todo",
       "module": "./Routes",
-      "location": "http://localhost:4201/remoteEntry.json"
+      "location": "http://pi.lan/todo-client/remoteEntry.json"
     },
     "note-client": {
       "path": "note",
       "module": "./Routes",
-      "location": "http://localhost:4202/remoteEntry.json"
+      "location": "http://pi.lan/note-client/remoteEntry.json"
     }
   },
   "defaultRoute": "note",
