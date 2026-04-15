@@ -24,3 +24,4 @@ jobs:
           mkdir -p /var/www/region-one-config/${{inputs.commitId}}
           rm -rf /var/www/region-one-config/${{inputs.commitId}}/*
           cp -r ./appconfig/* /var/www/region-one-config/${{inputs.commitId}}
+          ln -sf ./${{inputs.commitId}} /var/www/region-one-config/current
