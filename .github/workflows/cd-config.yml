@@ -8,16 +8,21 @@ on:
       commitId:
         type: string 
         description: Current repo commitId to deploy
+        required: false
+
+  push:
+    branches: main
 
 jobs:
   deploy:
     runs-on: [self-hosted, deploy]
     steps:
       - name: Checkout branch
+        if: ${{inputs.commitId != null}}
         uses: actions/checkout@v6
         with:
           path: configuration
-          ref: ${{inputs.commitId}}
+          ref: ${{inputs.commitId || github.sha}}
       - name: Copy configs
         working-directory: configuration
         run: | 
