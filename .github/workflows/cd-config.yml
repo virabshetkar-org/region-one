@@ -11,9 +11,10 @@ on:
         required: false
 
   push:
-    branches: main
+    branches: 
+     - main
     paths:
-     - /appconfig/**
+     - '/appconfig/**'
 
 jobs:
   deploy:
