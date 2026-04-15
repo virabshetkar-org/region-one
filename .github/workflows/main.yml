@@ -14,7 +14,7 @@ jobs:
     runs-on: [self-hosted, deploy]
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v7
+        uses: actions/checkout@v6
         with:
           path: configuration
           ref: ${{inputs.commitId}}
