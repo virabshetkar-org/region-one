@@ -12,7 +12,8 @@ on:
 
   push:
     branches: main
-    paths: /appconfig/**
+    paths:
+     - /appconfig/**
 
 jobs:
   deploy:
