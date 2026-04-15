@@ -21,6 +21,6 @@ jobs:
       - name: Copy configs
         working-directory: configuration
         run: | 
-          mkdir /var/www/region-one-config/${{inputs.commitId}}
+          mkdir -p /var/www/region-one-config/${{inputs.commitId}}
           rm -rf /var/www/region-one-config/${{inputs.commitId}}/*
           cp -r ./appconfig/* /var/www/region-one-config/${{inputs.commitId}}
