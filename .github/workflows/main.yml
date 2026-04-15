@@ -1,0 +1,26 @@
+name: CICD (Configuration)
+
+run-name: ${{github.sha}} -- Configuration
+
+on:
+  workflow_dispatch:
+    inputs:
+      commitId:
+        type: string 
+        description: Current repo commitId to deploy
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, deploy]
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v7
+        with:
+          path: configuration
+          ref: ${{inputs.commitId}}
+      - name: Copy configs
+        working-directory: configuration
+        run: | 
+          mkdir /var/www/region-one-config/${{inputs.commitId}}
+          rm -rf /var/www/region-one-config/${{inputs.commitId}}/*
+          cp ./appconfig/* /var/www/region-one-config/${{inputs.commitId}}
