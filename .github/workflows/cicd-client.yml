@@ -18,7 +18,7 @@ on:
         
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: [self-hosted, build]
     outputs:
       name: ${{steps.ngproj.outputs.name}}
     steps:
