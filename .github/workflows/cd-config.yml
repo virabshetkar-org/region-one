@@ -20,16 +20,18 @@ jobs:
   deploy:
     runs-on: [self-hosted, deploy]
     steps:
+      - name: Get commit hash
+        id: commitHash
+        run: echo "commitHash=${{inputs.commitId || github.sha}}" >> $GITHUB_OUTPUT
       - name: Checkout branch
-        if: ${{inputs.commitId != null}}
         uses: actions/checkout@v6
         with:
           path: configuration
-          ref: ${{inputs.commitId || github.sha}}
+          ref: ${{steps.commitHash.outputs.commitHash}}
       - name: Copy configs
         working-directory: configuration
         run: | 
-          mkdir -p /var/www/region-one-config/${{inputs.commitId}}
-          rm -rf /var/www/region-one-config/${{inputs.commitId}}/*
-          cp -r ./appconfig/* /var/www/region-one-config/${{inputs.commitId}}
-          ln -sfn ./${{inputs.commitId}} /var/www/region-one-config/current
+          mkdir -p /var/www/region-one-config/${{steps.commitHash.outputs.commitHash}}
+          rm -rf /var/www/region-one-config/${{steps.commitHash.outputs.commitHash}}/*
+          cp -r ./appconfig/* /var/www/region-one-config/${{steps.commitHash.outputs.commitHash}}
+          ln -sfn ./${{steps.commitHash.outputs.commitHash}} /var/www/region-one-config/current
