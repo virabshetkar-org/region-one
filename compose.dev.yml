@@ -1,3 +1,7 @@
+include:
+  - ./docker/note-service/compose.yml
+  - ./docker/todo-service/compose.yml
+
 services:
   reverse-proxy:
     extends:
