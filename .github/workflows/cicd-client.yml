@@ -17,52 +17,8 @@ on:
         description: Commit ID of the repo
         
 jobs:
-  build:
-    runs-on: [self-hosted, build]
-    outputs:
-      name: ${{steps.ngproj.outputs.name}}
-    steps:
-      - name: Clone repo
-        uses: actions/checkout@v6
-        with:
-          repository: ${{ inputs.repo }}
-          ref: ${{ inputs.commitId }}
-          path: application
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Get project name
-        id: ngproj
-        run: echo "name=$(jq -r '.defaultProject // (.projects | keys[0])' angular.json)" >> $GITHUB_OUTPUT
-        working-directory: application/client
-      - name: Ensure Node v24 is Installed
-        uses: actions/setup-node@v6
-        with:
-          node-version: 24
-          cache: npm
-          cache-dependency-path: application/client/package-lock.json
-      - name: Install npm dependencies
-        run: npm ci
-        working-directory: application/client
-      - name: Build Application
-        if: ${{steps.ngproj.outputs.name != 'shell'}}
-        run: npm run build -- --base-href /${{steps.ngproj.outputs.name}}/
-        working-directory: application/client
-      - name: Build Shell Application
-        if: ${{steps.ngproj.outputs.name == 'shell'}}
-        run: npm run build
-        working-directory: application/client
-      - name: Create Artifact
-        uses: actions/upload-artifact@v7
-        with:
-          path: application/client/dist/${{steps.ngproj.outputs.name}}/browser/*
-          name: client-artifact
-  deploy:
-    runs-on: [self-hosted, deploy]
-    needs: build
-    environment: Development
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v7
-        with:
-          path: /var/www/region-one/${{needs.build.outputs.name}}/${{inputs.commitId}}/
-      - name: Link hash
-        run: ln -sfn ./${{inputs.commitId}} /var/www/region-one/${{needs.build.outputs.name}}/current
+  ci-cd:
+    uses: virabshetkar-org/pipeline-templates/.github/workflows/client-ci-cd.yml@main
+    with:
+      repo: ${{ inputs.repo }}
+      commitId: ${{ inputs.commitId }}
