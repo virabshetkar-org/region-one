@@ -17,16 +17,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: [self-hosted, deploy]
-    steps:
-      - name: Tag commit id
-        run: docker buildx imagetools create --tag virabshetkar/${{inputs.repo}}:region-one-dev virabshetkar/${{inputs.repo}}:${{inputs.commitId}} 
-      - name: Checkout Branch
-        uses: actions/checkout@v6
-        with:
-          path: configuration
-      - name: Restart Container
-        working-directory: configuration/docker/${{inputs.repo}}
-        run: | 
-          docker compose pull
-          docker compose up -d
+    uses: virabshetkar-org/pipeline-templates/.github/workflows/server-deploy.yml@main
+    with:
+      repo: ${{ inputs.repo }}
+      commitId: ${{ inputs.commitId }}
